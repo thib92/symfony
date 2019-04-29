@@ -115,6 +115,13 @@ class PdoCaster
             unset($a[$prefix.'errorInfo']);
         }
 
+        // PDOStatement::activeQueryString is only available in PHP 7.2.0 and up
+        if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
+            $a[$prefix.'activeQueryString'] = $c->activeQueryString();
+        } else {
+            $a[$prefix.'activeQueryString'] = null;
+        }
+
         return $a;
     }
 }

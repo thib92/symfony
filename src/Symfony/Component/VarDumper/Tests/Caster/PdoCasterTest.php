@@ -61,4 +61,13 @@ EODUMP;
 
         $this->assertDumpMatchesFormat($xDump, $cast);
     }
+
+    public function testCastPdoStatement()
+    {
+        $pdo = new \PDO('sqlite::memory:');
+
+        $stmt = $pdo->query("SELECT 1");
+
+        var_dump(PdoCaster::castPdoStatement($stmt, [], new Stub(), false));
+    }
 }
